@@ -55,6 +55,10 @@
       <strong>🏠 Fry酥条の博客</strong><br/>
       <a href="https://blog.fryfries13.cn/">blog.fryfries13.cn</a>
     </td>
+    <td align="center" width="200">
+      <strong>🏠 Zyx_2012</strong><br/>
+      <a href="https://blog.zyx-2012.cn/">blog.zyx-2012.cn</a>
+    </td>
   </tr>
 </table>
 
