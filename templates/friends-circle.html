@@ -36,15 +36,19 @@
             <div class="friends-circle-grid" id="friendsCircleGrid" data-aos="fade-up" data-aos-delay="100">
             </div>
 
-            <div id="emptyState" class="friends-circle-empty" style="display: none;" data-aos="fade-up">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-              <p>暂无朋友圈内容</p>
-              <span>等待朋友们的更新</span>
+            <div id="emptyState" class="friends-circle-empty"
+              style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;width:100%;"
+              data-aos="fade-up">
+              <div class="plugin-notice-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="40" height="40">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3 class="plugin-notice-title">暂无朋友圈内容</h3>
+              <p class="plugin-notice-desc">等待朋友们的更新</p>
             </div>
 
             <div id="pagination" class="friends-circle-pagination" style="display: none;" data-aos="fade-up">
