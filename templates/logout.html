@@ -1,0 +1,42 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{gateway_fragments/layout :: layout(title = |退出登录 - ${site.title}|, head = ~{::head}, body = ~{::body})}">
+
+    <head></head>
+
+    <th:block th:fragment="body">
+        <div class="gateway-view-panel active" id="view-logout">
+            <div class="form-header">
+                <h2>退出登录</h2>
+                <p>确认离开当前账号</p>
+            </div>
+
+            <!-- 用户信息卡片 -->
+            <div class="logout-user-card" th:object="${user}">
+                <img th:if="*{spec.avatar}" th:src="*{spec.avatar}" alt="" class="logout-avatar" />
+                <div class="logout-avatar-placeholder" th:unless="*{spec.avatar}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M5 20c0-3.87 3.13-7 7-7s7 3.13 7 7" />
+                    </svg>
+                </div>
+                <div class="logout-user-info">
+                    <span class="logout-display-name" th:text="*{spec.displayName}">用户</span>
+                    <span class="logout-username" th:text="'@' + *{metadata.name}">@username</span>
+                </div>
+            </div>
+
+            <!-- 退出表单 -->
+            <form class="halo-form" id="logout-form" name="logout-form" th:action="@{/logout}" method="post">
+                <div class="form-item">
+                    <button type="submit">确认退出</button>
+                </div>
+            </form>
+
+            <div class="gateway-switch">
+                <a href="javascript:history.back()">取消，返回上一页</a>
+            </div>
+        </div>
+    </th:block>
+
+</html>

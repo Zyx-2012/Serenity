@@ -1,20 +1,185 @@
 <!doctype html>
-<html th:lang="${#locale.toLanguageTag}" th:fragment="layout (title,head,body)">
+<html th:lang="${#locale.toLanguageTag}" th:fragment="layout (title,head,body)"
+      th:with="defaultTheme = ${theme.config.basic?.defaultTheme != null ? theme.config.basic.defaultTheme : 'dark'}">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2" />
     <title th:text="${title}"></title>
-    
-    <link rel="icon" th:href="${theme.config.basic.favicon != null && !#strings.isEmpty(theme.config.basic.favicon) ? theme.config.basic.favicon : (site.favicon != null && !#strings.isEmpty(site.favicon) ? site.favicon : '/themes/theme-Serenity/assets/public/ics6.webp')}" />
+    <link rel="icon" th:href="${site.favicon}" />
     
     <th:block th:replace="~{gateway_fragments/common::basicStaticResources}"></th:block>
+    <link rel="stylesheet" th:href="@{/assets/css/base.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/login.css}" />
+    <script th:src="@{/assets/js/gateway-toast.js}" defer></script>
     
+    <!-- 暗色模式初始化（与主题一致） -->
+    <meta name="default-theme" th:content="${defaultTheme}" />
+    <script>
+      (function() {
+        var meta = document.querySelector('meta[name="default-theme"]');
+        var defaultTheme = (meta && meta.content) || 'dark';
+        var scheme = localStorage.getItem('color-scheme');
+        if (!scheme || scheme === 'auto') {
+          scheme = defaultTheme;
+        }
+        document.documentElement.setAttribute('data-theme', scheme);
+      })();
+    </script>
+    <script th:inline="javascript">
+      (function() {
+        var enabled = /*[[${theme.config.basic != null and theme.config.basic.typographyConfig != null and theme.config.basic.typographyConfig.enabled != null ? theme.config.basic.typographyConfig.enabled : false}]]*/ false;
+        if (!(enabled === true || enabled === 'true')) return;
+
+        var fontKey = /*[[${theme.config.basic != null and theme.config.basic.typographyConfig != null and theme.config.basic.typographyConfig.globalFont != null ? theme.config.basic.typographyConfig.globalFont : ''}]]*/ '';
+        var fontMap = {
+          noto_sans_sc: '"Noto Sans SC", sans-serif',
+          pingfang_sc: '"PingFang SC", sans-serif',
+          microsoft_yahei: '"Microsoft YaHei", sans-serif',
+          lxgw_wenkai: '"LXGW WenKai", serif',
+          smiley_sans: '"Smiley Sans Oblique", "LXGW WenKai", sans-serif',
+          zcool_kuaile: '"ZCOOL KuaiLe", "Comic Sans MS", cursive',
+          youyuan: '"YouYuan", "Microsoft YaHei", sans-serif',
+          styuanti: '"STYuanti", "PingFang SC", "Microsoft YaHei", sans-serif',
+          stkaiti: '"STKaiti", "KaiTi", serif',
+          stxingkai: '"STXingkai", "KaiTi", cursive',
+          harmonyos_sans_sc: '"HarmonyOS Sans SC", sans-serif',
+          misans: '"MiSans", sans-serif',
+          inter: '"Inter", sans-serif'
+        };
+
+        var resolved = '';
+        if (fontKey !== null && fontKey !== undefined) {
+          var key = String(fontKey).trim();
+          resolved = fontMap[key] || key;
+        }
+        if (!resolved) return;
+
+        var root = document.documentElement;
+        root.style.setProperty('--font-global', resolved);
+        root.style.setProperty('--font-sans', resolved);
+        root.style.setProperty('--font-serif', resolved);
+        root.style.setProperty('--font-rounded', resolved);
+        root.style.setProperty('--font-mono', resolved);
+      })();
+    </script>
+
     <th:block th:if="${head != null}">
       <th:block th:replace="${head}" />
     </th:block>
   </head>
-  <body th:attr="data-theme=${theme.config.basic.defaultTheme ?: 'dark'}">
-    <th:block th:replace="${body}" />
+  <body>
+    <!-- 壁纸背景层（直接读取首页壁纸配置） -->
+    <th:block th:if="${theme.config.home == null || theme.config.home.backgroundConfig == null || theme.config.home.backgroundConfig.showHeroBackground == null || theme.config.home.backgroundConfig.showHeroBackground}"
+              th:with="hasApi = ${theme.config.home != null and theme.config.home.backgroundConfig != null and theme.config.home.backgroundConfig.heroBackgroundApi != null and not #strings.isEmpty(theme.config.home.backgroundConfig.heroBackgroundApi)}">
+      <div class="gateway-wallpaper" id="gateway-wallpaper">
+        <th:block th:if="${hasApi}">
+          <img class="gateway-wallpaper-img" id="gateway-wallpaper-img" alt=""
+               th:data-api="${theme.config.home.backgroundConfig.heroBackgroundApi}"
+               th:data-api-mobile="${theme.config.home.backgroundConfig.heroBackgroundApiMobile}" />
+        </th:block>
+        <th:block th:unless="${hasApi}">
+          <th:block th:with="bgUrl = ${(theme.config.home != null and theme.config.home.backgroundConfig != null and theme.config.home.backgroundConfig.heroBackground != null and not #strings.isEmpty(theme.config.home.backgroundConfig.heroBackground)) ? theme.config.home.backgroundConfig.heroBackground : '/themes/theme-Serenity/assets/public/labixiaoxi.webp'}">
+            <img th:unless="${#strings.endsWith(#strings.toLowerCase(bgUrl), '.mp4') || #strings.endsWith(#strings.toLowerCase(bgUrl), '.webm')}"
+                 th:src="${bgUrl}" alt="" class="gateway-wallpaper-img loaded" />
+          </th:block>
+        </th:block>
+      </div>
+      <script>
+        (function() {
+          var wrap = document.getElementById('gateway-wallpaper');
+          if (wrap) document.body.classList.add('has-gateway-wallpaper');
+          var img = document.getElementById('gateway-wallpaper-img');
+          if (!img) img = document.querySelector('.gateway-wallpaper-img');
+          if (!img) return;
+          var api = img.getAttribute('data-api');
+          if (api) {
+            var CACHE_KEY = 'serenity_gw_wallpaper_url';
+            var SESSION_KEY = 'serenity_gw_wallpaper_session';
+            var cached = sessionStorage.getItem(CACHE_KEY);
+            var apiMobile = img.getAttribute('data-api-mobile');
+            var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            var finalUrl = cached || ((isMobile && apiMobile) ? apiMobile : api);
+            img.src = finalUrl;
+            img.decoding = 'async';
+            img.onload = function() {
+              img.classList.add('loaded');
+              if (!cached && img.src) sessionStorage.setItem(CACHE_KEY, img.src);
+            };
+            img.onerror = function() {
+              if (cached) {
+                sessionStorage.removeItem(CACHE_KEY);
+                img.src = (isMobile && apiMobile) ? apiMobile : api;
+              } else {
+                wrap.style.display = 'none';
+                document.body.classList.remove('has-gateway-wallpaper');
+              }
+            };
+          }
+        })();
+      </script>
+    </th:block>
+
+    <!-- 背景层 -->
+    <div class="atmosphere"></div>
+    <div class="paper-texture"></div>
+
+    <!-- 返回主页按钮 -->
+    <a href="/" class="gateway-home-btn" aria-label="返回主页">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>
+      </svg>
+      <span>返回主页</span>
+    </a>
+
+    <!-- 主容器 -->
+    <div class="gateway-page">
+      <div class="gateway-container glass">
+
+        <!-- 左侧：品牌展示区 -->
+        <div class="gateway-brand">
+          <div class="brand-bg-glow"></div>
+
+          <div class="brand-top">
+            <div class="brand-logo-row">
+              <div class="brand-logo-icon">
+                <img th:src="${site.logo ?: (site.favicon ?: '/themes/theme-Serenity/assets/public/ics6.webp')}"
+                     th:alt="${site.title}" alt="Logo" />
+              </div>
+              <div class="brand-logo-info">
+                <span class="brand-logo-text" th:text="${site.title}">Serenity</span>
+                <span class="brand-logo-subtitle" th:if="${site.subtitle}" th:text="${site.subtitle}">Grace in every moment</span>
+              </div>
+            </div>
+
+            <div id="brand-text-area">
+              <h1 class="brand-headline" id="brand-headline" th:text="${#strings.contains(title, '退出') ? '暂别，山高水长间。' : (#strings.contains(title, '注册') ? '轻落，如花映水间。' : '归来，恰似风拂檐。')}">归来，恰似风拂檐。</h1>
+              <p class="brand-desc" id="brand-desc" th:text="${#strings.contains(title, '退出') ? '短暂的离开，是为了更好的重逢。期待你的再次归来。' : (#strings.contains(title, '注册') ? '在这片宁静之地，留下你温柔的印记。每一个故事，都值得被安放。' : '久别重逢，一切如初。愿这份宁静，与你常在。')}">久别重逢，一切如初。愿这份宁静，与你常在。</p>
+            </div>
+          </div>
+
+          <div class="brand-bottom">
+            <div class="brand-stats-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+              <span th:text="${'Serenity · ' + site.title}">Serenity · 博客</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右侧：表单区域 -->
+        <div class="gateway-form-area">
+          <th:block th:replace="${body}" />
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="gateway-footer">
+      <span>Powered by <a href="https://halo.run" target="_blank" rel="noopener" style="pointer-events:auto;color:inherit;text-decoration:none;">Halo</a></span>
+      <span th:if="${theme.config.basic?.siteInfo?.author}" th:text="'Theme by ' + ${theme.config.basic.siteInfo.author}"></span>
+    </div>
   </body>
 </html>

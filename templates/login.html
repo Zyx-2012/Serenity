@@ -1,91 +1,79 @@
 <!doctype html>
-<html
-    xmlns:th="https://www.thymeleaf.org"
-    th:replace="~{gateway_fragments/layout :: layout(title = |登录 - ${site.title}|, head = ~{::head}, body = ~{::body})}"
->
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{gateway_fragments/layout :: layout(title = |登录 - ${site.title}|, head = ~{::head}, body = ~{::body})}">
+
     <head>
-        <style>
-          html { background-color: #111111; }
-          html[data-theme="light"] { background-color: #ffffff; }
-        </style>
-        <link rel="stylesheet" th:href="@{/assets/css/login.css}" />
-        <script th:src="@{/assets/js/gateway-toast.js}" defer></script>
         <script th:src="@{/assets/js/login.js}" defer></script>
-        
-        <meta name="default-theme" th:content="${theme.config.basic.defaultTheme ?: 'dark'}" />
-        <script>
-          (function() {
-            var meta = document.querySelector('meta[name="default-theme"]');
-            var defaultTheme = (meta && meta.content) || 'dark';
-            var scheme = localStorage.getItem('color-scheme');
-            if (!scheme || scheme === 'auto') { scheme = defaultTheme; }
-            document.documentElement.setAttribute('data-theme', scheme);
-            document.documentElement.setAttribute('data-default-theme', defaultTheme);
-          })();
-        </script>
     </head>
-    
+
     <th:block th:fragment="body">
-        <div class="sepo-gateway-background">
-          <div th:if="${theme.config.home == null || theme.config.home.showHeroBackground == null || theme.config.home.showHeroBackground}" 
-               class="sepo-gateway-wallpaper">
-            <th:block th:with="bgUrl = ${theme.config.home != null && theme.config.home.heroBackground != null && !#strings.isEmpty(theme.config.home.heroBackground) ? theme.config.home.heroBackground : '/themes/theme-Serenity/assets/public/labixiaoxi.webp'}">
-              <video th:if="${#strings.endsWith(#strings.toLowerCase(bgUrl), '.mp4') || #strings.endsWith(#strings.toLowerCase(bgUrl), '.webm')}" 
-                     th:src="${bgUrl}" 
-                     class="sepo-gateway-wallpaper-media"
-                     autoplay 
-                     loop 
-                     muted 
-                     playsinline
-                     disablepictureinpicture></video>
-              <div th:unless="${#strings.endsWith(#strings.toLowerCase(bgUrl), '.mp4') || #strings.endsWith(#strings.toLowerCase(bgUrl), '.webm')}" 
-                   class="sepo-gateway-wallpaper-media"
-                   th:style="'background-image: url(' + ${bgUrl} + ');'"></div>
+        <!-- 登录视图 -->
+        <div class="gateway-view-panel active" id="view-login">
+            <div class="form-header">
+                <h2>登录</h2>
+                <p>继续你的文学之旅</p>
+            </div>
+
+            <div th:replace="~{gateway_fragments/login::form}"></div>
+
+            <th:block th:unless="${#lists.isEmpty(socialAuthProviders)}">
+                <div class="social-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-text"><span>快速关联</span></div>
+                </div>
+                <div class="social-buttons">
+                    <form th:each="provider : ${socialAuthProviders}"
+                        th:action="|/login/social/${provider.metadata.name}?remember-me=false|" method="post"
+                        class="social-btn-form">
+                        <button type="submit" class="social-btn">
+                            <img th:src="${provider.spec.logo}" th:alt="${provider.spec.displayName}"
+                                class="social-btn-icon" />
+                            <span th:text="${provider.spec.displayName}">Provider</span>
+                        </button>
+                    </form>
+                </div>
             </th:block>
-          </div>
+
+            <div class="gateway-switch">
+                <th:block th:if="${globalInfo.allowRegistration}">
+                    尚未开启旅程？ <a th:href="@{/signup}">立即注册</a>
+                </th:block>
+            </div>
         </div>
-        
-        <!-- 主题装饰图片 -->
-        <div class="theme-decor" th:if="${theme.config.home == null || theme.config.home.showThemeDecor == null || theme.config.home.showThemeDecor}">
-          <img th:src="${theme.config.home != null && theme.config.home.customDecorLight != null && !#strings.isEmpty(theme.config.home.customDecorLight) ? theme.config.home.customDecorLight : '/themes/theme-Serenity/assets/public/light.webp'}" alt="" class="theme-decor-light" />
-          <img th:src="${theme.config.home != null && theme.config.home.customDecorDark != null && !#strings.isEmpty(theme.config.home.customDecorDark) ? theme.config.home.customDecorDark : '/themes/theme-Serenity/assets/public/dark.webp'}" alt="" class="theme-decor-dark" />
-        </div>
-        
-        <a href="/" class="sepo-gateway-back-button">
-          <span>&lt;</span>
-          <span>返回网站</span>
-        </a>
-        
-        <div class="gateway-wrapper">
-            <div class="sepo-gateway-content-container">
-                <div class="sepo-gateway-main-card">
-                    <div class="sepo-gateway-header-section">
-                        <div class="sepo-gateway-brand-logo">
-                            <img th:src="${theme.config.hero.avatar ?: (site.favicon ?: '/themes/theme-Serenity/assets/public/ics6.webp')}" 
-                                 th:alt="${site.title}" 
-                                 alt="Logo" />
-                        </div>
-                        <div class="sepo-gateway-brand-text">
-                            <h1 class="sepo-gateway-site-title" th:text="${site.title}">Serenity</h1>
-                            <p class="sepo-gateway-site-subtitle" th:text="${site.subtitle}">一个优雅的博客</p>
-                        </div>
-                    </div>
-                    
-                    <div th:replace="~{gateway_fragments/login::form}"></div>
-                    
-                    <div th:if="${globalInfo.allowRegistration}" class="sepo-gateway-switch-section">
-                        <span>还没有账户？</span>
-                        <a th:href="@{/signup}">立即注册</a>
+
+        <!-- 忘记密码视图 -->
+        <div class="gateway-view-panel" id="view-forgot">
+            <button type="button" class="back-to-login" onclick="switchView('login')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5" />
+                    <path d="M12 19l-7-7 7-7" />
+                </svg>
+                <span>返回登录</span>
+            </button>
+
+            <div class="form-header">
+                <h2>找回密码</h2>
+                <p>我们将向您的邮箱发送重置链接</p>
+            </div>
+
+            <form class="halo-form" id="reset-form">
+                <input type="hidden" name="_csrf" id="reset-csrf" value="" />
+                <div class="form-item">
+                    <label for="reset-email">注册邮箱</label>
+                    <div class="form-input">
+                        <input type="email" id="reset-email" name="email" required autocomplete="email"
+                            placeholder="your@email.com" />
                     </div>
                 </div>
-                
-                <div class="sepo-gateway-footer-outside">
-                    <p>
-                        Powered by <a href="https://halo.run" target="_blank" rel="noopener">Halo</a>
-                        <span th:if="${theme.config.basic.author}"> · Theme by <span th:text="${theme.config.basic.author}"></span></span>
-                    </p>
+                <div class="form-item">
+                    <button type="submit">发送重置邮件</button>
                 </div>
+            </form>
+
+            <div class="forgot-tip">
+                <p>提示：如果您在 5 分钟内未收到邮件，请检查您的垃圾邮件文件夹或尝试重新发送。</p>
             </div>
         </div>
     </th:block>
+
 </html>

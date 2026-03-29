@@ -105,6 +105,7 @@
   color: var(--color-text);
   margin-bottom: var(--space-1);
 }
+
 .about-bio {
   font-size: 13px;
   color: var(--color-text-muted);
@@ -615,40 +616,6 @@
   opacity: 0.7;
 }
 
-@media (max-width: 640px) {
-  .forever-blog-logo img {
-    height: 20px;
-  }
-
-  .forever-blog-title {
-    font-size: 13px;
-  }
-
-  .forever-blog-desc {
-    font-size: 10px;
-  }
-
-  .forever-blog-header {
-    gap: var(--space-3);
-    margin-bottom: var(--space-3);
-  }
-
-  .progress-bar {
-    height: 8px;
-    margin-bottom: var(--space-2);
-  }
-
-  .progress-text {
-    font-size: 10px;
-    flex-wrap: wrap;
-    gap: var(--space-1);
-  }
-
-  .remaining-time {
-    font-size: 10px;
-  }
-}
-
 .about-card-watermark {
   position: absolute;
   bottom: 40px;
@@ -661,164 +628,6 @@
   pointer-events: none;
   user-select: none;
   z-index: 0;
-}
-
-@media (max-width: 768px) {
-  .about-hero {
-    padding-top: calc(var(--header-height) + var(--space-6));
-    padding-bottom: var(--space-3);
-  }
-
-  .about-avatar-wrapper {
-    gap: var(--space-3);
-    margin-bottom: var(--space-3);
-  }
-
-  .about-hero-avatar {
-    width: 90px;
-    height: 90px;
-  }
-
-  .hero-tag {
-    font-size: 10px;
-    padding: 3px 8px;
-  }
-
-  .hero-tags-left,
-  .hero-tags-right {
-    min-width: 70px;
-    gap: var(--space-1);
-  }
-
-  .about-name {
-    font-size: 1.1rem;
-  }
-
-  .about-bio {
-    font-size: 12px;
-  }
-
-  .glass-card {
-    padding: var(--space-4);
-    margin-bottom: var(--space-3);
-    border-radius: var(--radius-lg);
-  }
-
-  .about-section-title {
-    font-size: 13px;
-    margin-bottom: var(--space-3);
-  }
-
-  .about-section-title svg {
-    width: 15px;
-    height: 15px;
-  }
-
-  .about-content {
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .about-text,
-  .about-text p {
-    font-size: 12px;
-    line-height: 1.7;
-  }
-
-  .about-text p {
-    margin-bottom: var(--space-2);
-  }
-
-  .about-stats {
-    justify-content: center;
-    padding: var(--space-3);
-    gap: var(--space-3);
-  }
-
-  .stat-num {
-    font-size: 1rem;
-  }
-
-  .stat-label {
-    font-size: 10px;
-  }
-
-  .stat-divider {
-    height: 24px;
-  }
-
-  .skills-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-2);
-  }
-
-  .skill-card {
-    padding: var(--space-2) var(--space-3);
-    gap: var(--space-2);
-  }
-
-  .skill-icon {
-    width: 30px;
-    height: 30px;
-    font-size: 10px;
-  }
-
-  .skill-icon svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .skill-icon-custom img {
-    width: 18px;
-    height: 18px;
-  }
-
-  .skill-icon-iconify iconify-icon {
-    font-size: 18px;
-  }
-
-  .skill-name {
-    font-size: 11px;
-  }
-
-  .skill-bar {
-    height: 3px;
-  }
-
-  .about-history,
-  .about-history p {
-    font-size: 12px;
-    line-height: 1.7;
-  }
-
-  .about-history p {
-    margin-bottom: var(--space-1);
-  }
-
-  .about-contact {
-    justify-content: center;
-    gap: var(--space-2);
-  }
-
-  .contact-link {
-    font-size: 11px;
-    padding: var(--space-2) var(--space-3);
-  }
-
-  .contact-link svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .card-decoration {
-    display: none;
-  }
-
-  .about-card-watermark {
-    font-size: 2.5rem;
-    bottom: 20px;
-    right: 20px;
-  }
 }
 
 .afdian-card {
@@ -985,45 +794,354 @@
   height: 18px;
 }
 
-@media (max-width: 768px) {
-  .afdian-sponsors {
-    gap: var(--space-2);
-  }
-
-  .sponsor-item {
-    min-width: 100%;
-    max-width: 100%;
-    padding: var(--space-2);
-  }
-
-  .sponsor-avatar {
-    width: 36px;
-    height: 36px;
-  }
-
-  .sponsor-name {
-    font-size: 12px;
-  }
-
-  .afdian-btn {
-    font-size: 12px;
-    padding: var(--space-2) var(--space-4);
-  }
-
-  .afdian-btn svg {
-    width: 15px;
-    height: 15px;
-  }
-
-  .afdian-empty svg {
-    width: 36px;
-    height: 36px;
-  }
-
-  .afdian-empty p {
-    font-size: 12px;
-  }
+.afdian-plan-section {
+  margin-top: var(--space-4);
 }
+
+.afdian-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: var(--space-4);
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #fff;
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    opacity 0.25s ease,
+    transform 0.15s ease;
+  font-family: inherit;
+}
+
+.afdian-toggle-btn:hover {
+  opacity: 0.85;
+}
+
+.afdian-toggle-btn:active {
+  transform: scale(0.98);
+}
+
+.afdian-section-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.afdian-toggle-chevron {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.afdian-toggle-btn--open .afdian-toggle-chevron {
+  transform: rotate(180deg);
+}
+
+.afdian-collapse-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.afdian-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+}
+
+.afdian-plan-item {
+  position: relative;
+  padding: var(--space-4) var(--space-4) calc(var(--space-3) + 22px);
+  background: var(--color-bg-mute);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-theme="light"] .afdian-plan-item {
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+.afdian-plan-item:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.afdian-plan-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-2);
+  gap: var(--space-2);
+}
+
+.afdian-plan-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.afdian-plan-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.afdian-plan-desc {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-bottom: var(--space-2);
+}
+
+.afdian-plan-action {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  font-size: 11px;
+  color: var(--color-accent);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.25s ease;
+}
+
+.afdian-plan-item:hover .afdian-plan-action {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.afdian-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme="dark"] .afdian-modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.afdian-modal-overlay.active {
+  display: flex;
+}
+
+.afdian-modal {
+  background: var(--color-bg-card, #fff);
+  border-radius: var(--radius-xl);
+  width: 440px;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .afdian-modal {
+  background: #fff;
+}
+
+[data-theme="dark"] .afdian-modal {
+  background: var(--color-bg-soft, #1a1a1a);
+}
+
+.afdian-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.afdian-modal-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.afdian-modal-close {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--color-text-muted);
+}
+
+.afdian-modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.afdian-modal-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(var(--color-accent-rgb), 0.08);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-3);
+}
+
+.afdian-modal-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.afdian-modal-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.afdian-modal-desc {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  padding: 10px 14px;
+  background: var(--color-bg-mute);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+}
+
+.afdian-modal-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+.afdian-month-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: var(--space-3);
+}
+
+.afdian-month-opt {
+  padding: 8px 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.afdian-month-opt:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.afdian-month-opt.active {
+  border-color: var(--color-accent);
+  background: rgba(var(--color-accent-rgb), 0.08);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.afdian-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.afdian-modal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 500;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.afdian-modal-btn:hover {
+  background: var(--color-bg-mute);
+  color: var(--color-text);
+}
+
+.afdian-modal-btn-primary {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.afdian-modal-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.afdian-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background: #334155;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  z-index: 10000;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.afdian-toast--show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.afdian-toast--success {
+  background: #10b981;
+}
+
+.afdian-toast--warn {
+  background: #f59e0b;
+}
+
+.afdian-toast--error {
+  background: #ef4444;
+}
+
 .sponsor-qrcode {
   position: absolute;
   top: calc(100% + 12px);
@@ -1102,4 +1220,258 @@
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
   line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding-top: calc(var(--header-height) + var(--space-6));
+    padding-bottom: var(--space-3);
+  }
+
+  .about-avatar-wrapper {
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .about-hero-avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .hero-tag {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .hero-tags-left,
+  .hero-tags-right {
+    min-width: 70px;
+    gap: var(--space-1);
+  }
+
+  .about-name {
+    font-size: 1.1rem;
+  }
+
+  .about-bio {
+    font-size: 12px;
+  }
+
+  .glass-card {
+    padding: var(--space-4);
+    margin-bottom: var(--space-3);
+    border-radius: var(--radius-lg);
+  }
+
+  .about-section-title {
+    font-size: 13px;
+    margin-bottom: var(--space-3);
+  }
+
+  .about-section-title svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .about-content {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .about-text,
+  .about-text p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .about-text p {
+    margin-bottom: var(--space-2);
+  }
+
+  .about-stats {
+    justify-content: center;
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .stat-num {
+    font-size: 1rem;
+  }
+
+  .stat-label {
+    font-size: 10px;
+  }
+
+  .stat-divider {
+    height: 24px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .skill-card {
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .skill-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 10px;
+  }
+
+  .skill-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .skill-icon-custom img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .skill-icon-iconify iconify-icon {
+    font-size: 18px;
+  }
+
+  .skill-name {
+    font-size: 11px;
+  }
+
+  .skill-bar {
+    height: 3px;
+  }
+
+  .about-history,
+  .about-history p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .about-history p {
+    margin-bottom: var(--space-1);
+  }
+
+  .about-contact {
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  .contact-link {
+    font-size: 11px;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .contact-link svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .card-decoration {
+    display: none;
+  }
+
+  .about-card-watermark {
+    font-size: 2.5rem;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .afdian-sponsors {
+    gap: var(--space-2);
+  }
+
+  .sponsor-item {
+    min-width: 100%;
+    max-width: 100%;
+    padding: var(--space-2);
+  }
+
+  .sponsor-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .sponsor-name {
+    font-size: 12px;
+  }
+
+  .afdian-btn {
+    font-size: 12px;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .afdian-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .afdian-empty svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .afdian-empty p {
+    font-size: 12px;
+  }
+
+  .afdian-plan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .afdian-toggle-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    margin-top: var(--space-3);
+    border-radius: 6px;
+  }
+
+  .afdian-toggle-chevron {
+    width: 14px;
+    height: 14px;
+  }
+
+  .afdian-modal {
+    width: 95vw;
+  }
+
+  .afdian-month-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .forever-blog-logo img {
+    height: 20px;
+  }
+
+  .forever-blog-title {
+    font-size: 13px;
+  }
+
+  .forever-blog-desc {
+    font-size: 10px;
+  }
+
+  .forever-blog-header {
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .progress-bar {
+    height: 8px;
+    margin-bottom: var(--space-2);
+  }
+
+  .progress-text {
+    font-size: 10px;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .remaining-time {
+    font-size: 10px;
+  }
 }
